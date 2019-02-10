@@ -6,7 +6,7 @@ cat index.html > get-docker.sh
 chmod +x get-docker.sh
 
 # Run the install script
-./install-docker.sh
+./get-docker.sh
 
 # Cleanup
 rm get-docker.sh index.html
