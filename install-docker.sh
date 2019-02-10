@@ -1,5 +1,5 @@
 # Get updated docker install script
-wget https://get.docker.com
+wget -q https://get.docker.com
 cat index.html > get-docker.sh
 
 # Add execute permissions
