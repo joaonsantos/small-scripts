@@ -44,7 +44,7 @@ do_install() {
       gpg -a --export E298A3A825C0D65DFD57CBB651716619E084DAB9 | sudo apt-key add -
 
       sudo apt-get update
-      sudo apt-get install -y r-base
+      sudo apt-get install -y r-base r-base-dev
       ;;
 
     esac
