@@ -46,7 +46,7 @@ do_install() {
           wget
 
       # Get pip
-      wget -q -O get-pip.py "https://bootstrap.pypa.io/get-pip.py"
+      wget -O get-pip.py "https://bootstrap.pypa.io/get-pip.py"
       
       # Add pip to PATH
       NEW_PATH="${PATH}:/home/${USER}/.local/bin"
@@ -56,8 +56,8 @@ do_install() {
       source ~/.bashrc
 
       # Install pipvenv
-      python3.7 get-pip.py -q --user pip \
-        && pip3.7 install -q --user pipenv
+      python3.7 get-pip.py --user pip \
+        && pip3.7 install --user pipenv
 
       # Remove get-pip file
       rm get-pip.py
