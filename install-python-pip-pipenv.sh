@@ -39,7 +39,7 @@ do_install() {
       echo -e "Using Ubuntu/Mint ${dist_version}, proceeding with install...\n"
 
       # Install python
-      sudo apt-get -qq update && apt-get install -qq -y \
+      sudo apt-get update && apt-get install -y \
           python3.7 \
           python3.7-dev \
           python3.7-distutils \
