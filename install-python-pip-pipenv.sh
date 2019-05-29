@@ -39,7 +39,9 @@ do_install() {
       echo -e "Using Ubuntu/Mint ${dist_version}, proceeding with install...\n"
 
       # Install python
-      sudo apt-get update && apt-get install -y \
+      sudo apt-get update
+      sudo apt-get install -y \
+	  build-essential \
           python3.7 \
           python3.7-dev \
           python3.7-distutils \
@@ -47,20 +49,26 @@ do_install() {
 
       # Get pip
       wget -O get-pip.py "https://bootstrap.pypa.io/get-pip.py"
-      
+
+      # Install pip
+      python3.7 get-pip.py --user pip
+
       # Add pip to PATH
       NEW_PATH="${PATH}:/home/${USER}/.local/bin"
+      
+      touch .newpath
+      echo -e "\nexport PATH=${NEW_PATH}" | \
+        tee -a /home/${USER}/.bashrc .newpath
+      source .newpath
+      
+      # Install pipenv
+      pip3.7 install --user pipenv
 
-      echo "\nexport PATH=${NEW_PATH}" >> \
-        sudo tee -a /home/${USER}/.bashrc
-      source ~/.bashrc
+      # Clean up
+      rm get-pip.py .newpath
 
-      # Install pipvenv
-      python3.7 get-pip.py --user pip \
-        && pip3.7 install --user pipenv
-
-      # Remove get-pip file
-      rm get-pip.py
+      echo -e 'Installation successful.\n'
+      echo -e 'Please close and open your shell for changes to take effect.\n'
 
       ;;
     *)
