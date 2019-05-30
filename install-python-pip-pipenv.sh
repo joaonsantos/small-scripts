@@ -35,7 +35,7 @@ do_install() {
 
   case "$dist_version" in
 
-    tara|tessa|bionic|cosmic)
+    tara|tessa|bionic|cosmic|disco)
       echo -e "Using Ubuntu/Mint ${dist_version}, proceeding with install...\n"
 
       # Install python
