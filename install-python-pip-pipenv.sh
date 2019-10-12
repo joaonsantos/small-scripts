@@ -30,28 +30,30 @@ get_distribution_version() {
   }
 
 do_install() {
+  PYTHON_VERSION=$1
+
   echo -e "Starting installation...\n"
   dist_version=$( get_distribution_version )
 
   case "$dist_version" in
 
-    tara|tessa|bionic|cosmic|disco)
+    tara|tessa|bionic|cosmic|disco|eoan)
       echo -e "Using Ubuntu/Mint ${dist_version}, proceeding with install...\n"
 
       # Install python
       sudo apt-get update
       sudo apt-get install -y \
 	  build-essential \
-          python3.7 \
-          python3.7-dev \
-          python3.7-distutils \
+          python${PYTHON_VERSION} \
+          python${PYTHON_VERSION}-dev \
+          python${PYTHON_VERSION}-distutils \
           wget
 
       # Get pip
       wget -O get-pip.py "https://bootstrap.pypa.io/get-pip.py"
 
       # Install pip
-      python3.7 get-pip.py --user pip
+      python${PYTHON_VERSION} get-pip.py --user pip
 
       # Add pip to PATH
       NEW_PATH="${PATH}:/home/${USER}/.local/bin"
@@ -62,20 +64,30 @@ do_install() {
       source .newpath
       
       # Install pipenv
-      pip3.7 install --user pipenv
+      pip${PYTHON_VERSION} install --user pipenv
 
       # Clean up
       rm get-pip.py .newpath
 
-      echo -e 'Installation successful.\n'
-      echo -e 'Please close and open your shell for changes to take effect.\n'
+      echo "Installation successful."
+      echo "Please close and open your shell for changes to take effect."
 
       ;;
     *)
-      echo -e 'Distribution not recognized...\nInstallation unsuccessful.\n'
+      echo "Distribution not recognized...\nInstallation unsuccessful."
+      echo 
 
     esac
   }
 
 # Run the script
-do_install
+if [ -z "$1" ]
+  then
+    echo "No version of python selected to install!"
+    echo
+    echo "Usage:"
+    echo "./install-python-pip-pipenv.sh 3.8"
+    exit 1
+  else
+    do_install $1
+fi
