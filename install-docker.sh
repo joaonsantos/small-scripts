@@ -1,3 +1,7 @@
+#!/bin/bash
+# Exit on first error
+set -e
+
 get_distribution() {
   lsb_dist=""
 
