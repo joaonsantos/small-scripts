@@ -27,7 +27,7 @@ get_distribution_version() {
     esac
 
     echo "$dist_version"
-  }
+}
 
 do_install() {
   echo -e "Starting installation...\n"
@@ -35,7 +35,7 @@ do_install() {
 
   case "$dist_version" in
 
-    disco|eoan)
+    disco)
       echo -e "Using Ubuntu ${dist_version}, proceeding with install...\n"
       curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
@@ -43,24 +43,36 @@ do_install() {
       sudo apt-get install -y docker-ce
 
       ;;
+    eoan)
+      echo -e "Using Ubuntu ${dist_version}, proceeding with install...\n"
+      curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+      sudo add-apt-repository "deb [arch=amd64]
+      https://download.docker.com/linux/ubuntu disco stable edge"
+      sudo apt-get install -y docker-ce
+
+      ;;
     *)
-      echo -e "Using Mint/Ubuntu ${dist_version}, proceeding with install...\n"
-
-      # Get updated docker install script
-      wget -q https://get.docker.com
-      cat index.html > get-docker.sh
-
-      # Add execute permissions
-      chmod +x get-docker.sh
-
-      # Run the install script
-      ./get-docker.sh
-
-      # Cleanup
-      rm get-docker.sh index.html
+      echo -e "Using unsupported distribution..."
+      echo -e "Please, follow the steps at https://docs.docker.com/install"
+      exit 0
+      ;;
 
     esac
-  }
+
+  # Get updated docker install script
+  wget -q https://get.docker.com
+  cat index.html > get-docker.sh
+
+  # Add execute permissions
+  chmod +x get-docker.sh
+
+  # Run the install script
+  ./get-docker.sh
+
+  # Cleanup
+  rm get-docker.sh index.html
+}
 
 # Run installation
 do_install
