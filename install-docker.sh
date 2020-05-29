@@ -39,7 +39,7 @@ do_install() {
 
   case "$dist_version" in
 
-    disco | eoan | focal)
+    bionic | disco | eoan | focal)
       echo -e "Using Ubuntu ${dist_version}, proceeding with install...\n"
       curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
