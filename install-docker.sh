@@ -74,7 +74,7 @@ do_install
 
 # Add user to docker group to remove need for sudo
 # Only needed for unix
-sudo groupadd docker
+sudo groupadd docker || :
 sudo usermod -aG docker $USER
 
 echo -e 'Installation successful.\n'
