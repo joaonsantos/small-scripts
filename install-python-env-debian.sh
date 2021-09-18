@@ -5,7 +5,7 @@ do_install() {
     PYTHON_VERSION=$1
     
     echo -e "Starting installation...\n"
-    echo -e "Using Ubuntu/Mint ${dist_version}, proceeding with install...\n"
+    echo -e "Using Ubuntu/Mint/Debian ${dist_version}, proceeding with install...\n"
     
     # Install python
     sudo apt-get update
